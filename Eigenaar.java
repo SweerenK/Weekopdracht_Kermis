@@ -5,7 +5,8 @@ public class Eigenaar {
 	String[] vragenAanBezoeker = { "Wil je een nieuwe rit maken?", "Wil je inzage in de cijfers?",
 			"Wil je de kermis verlaten?" };
 	String[][] cijfersVoorBezoeker = { { "k", "aantal kaartjes" }, { "o", "omzet attracties" },{"t", "terug.."} };
-
+	Kassa kassa = new Kassa();
+	
 	public void setAantalVerkochteKaartjes() {
 		for (int k = 0; k < aantalVerkochteKaartjes.length; k++) {
 			aantalVerkochteKaartjes[k] = Kermis.attracties[k].aantalkaartjes;
@@ -79,17 +80,25 @@ public class Eigenaar {
 	}
 
 	void toonCijfersOmzet() {
-		Kassa kassa = new Kassa();
-		System.out.println("Omzet\tAttractie");
+		Double totaleOmzet = 0.00;
+		System.out.println("OMZET\tATTRACTIE");
 		for(int k = 0; k< Kermis.attracties.length ; k++) {
-			System.out.println(kassa.omzetAttracties[k] + "\t" + Kermis.attracties[k].attractienaam);
+			System.out.printf("%.2f\t%s\n", Kermis.attracties[k].omzet, Kermis.attracties[k].attractienaam);
+			totaleOmzet += kassa.omzetAttracties[k];
 		}
+		System.out.printf("----\n%.2f\t%s\n", totaleOmzet, "Totaal");
+		
 		System.out.println();
 		geefInzageInCijfers();
 	}
 
 	void toonCijfersKaartverkoop() {
-
+		System.out.println("AANTAL\tATTRACTIE");
+		for(int k = 0; k< Kermis.attracties.length ; k++) {
+			System.out.println(Kermis.attracties[k].aantalkaartjes + "\t" + Kermis.attracties[k].attractienaam);
+		}
+		System.out.println("----\n" + getAantalVerkochteKaartjes() + "\tTotaal");
+		System.out.println();
+		geefInzageInCijfers();
 	}
-
 }

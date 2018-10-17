@@ -9,7 +9,8 @@ public class Kassa {
 	public void addToOmzetAttractie(int attractieKeuze, Double prijs) {
 		for (int j = 0; j < Kermis.attracties.length; j++) {
 			if (j == attractieKeuze) {
-				omzetAttracties[j] += prijs;
+				Kermis.attracties[j].omzet += prijs;
+				//omzetAttracties[j] += prijs;
 				//System.out.println("omzet van " + j + " is " + omzetAttracties[j]);
 			}
 		}

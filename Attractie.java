@@ -4,7 +4,7 @@ abstract public class Attractie {
 	Attractie attractie;
 	String attractienaam;
 	int oppervlakte, aantalkaartjes, index;
-	Double prijs, omzet;
+	Double prijs, omzet = 0.00;
 	Kassa kassa = new Kassa();
 
 	void draaien() {
@@ -13,7 +13,7 @@ abstract public class Attractie {
 
 	void vulKassa(int attractieKeuze) {
 		kassa.addToOmzetAttractie(attractieKeuze, prijs);
-		System.out.println(kassa.omzetAttracties[attractieKeuze]);
+		System.out.println(omzet);
 	}
 
 	void verhoogKaartAantal() {
@@ -26,7 +26,6 @@ class Botsauto extends Attractie {
 	Botsauto() {
 		attractienaam = "Botsauto's";
 		prijs = 2.50;
-		aantalkaartjes = 0;
 	}
 }
 
