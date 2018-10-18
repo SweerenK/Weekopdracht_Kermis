@@ -8,7 +8,10 @@ public class Bezoeker {
 		while (Main.kermisverlaten == false) {
 			System.out.println("In welke attractie wil je?");
 			for (int i = 0; i < kermis.attracties.length; i++) {
-				System.out.print((i + 1) + ". " + kermis.attracties[i].attractienaam + "\t\t");
+				if(i == 3) {
+				System.out.println();
+				}
+				System.out.printf((i + 1) + ". " + kermis.attracties[i].attractienaam + " (€" + "%.2f"+ ")  \t\t", kermis.attracties[i].prijs);
 			}
 			int attractieKeuze = Main.scan.nextInt();
 			return attractieKeuze;

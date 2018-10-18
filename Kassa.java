@@ -10,8 +10,6 @@ public class Kassa {
 		for (int j = 0; j < Kermis.attracties.length; j++) {
 			if (j == attractieKeuze) {
 				Kermis.attracties[j].omzet += prijs;
-				//omzetAttracties[j] += prijs;
-				//System.out.println("omzet van " + j + " is " + omzetAttracties[j]);
 			}
 		}
 	}

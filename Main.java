@@ -33,6 +33,8 @@ public class Main {
 	}
 
 	static boolean pressEnter() {
+		System.out.println("\t(Druk op enter om door te gaan..)");
+		scan.nextLine();
 		if (scan.nextLine().length() == 0) {
 			return false;
 		} else {

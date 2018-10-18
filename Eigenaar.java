@@ -23,12 +23,22 @@ public class Eigenaar {
 
 	void verwerkAttractieKeuze(int attractieKeuze) {
 		Attractie nieuweAttractie = Kermis.attracties[attractieKeuze - 1];
+		if(nieuweAttractie instanceof RisicoRijkeAttracties) {
+			RisicoRijkeAttracties riskAttractie = (RisicoRijkeAttracties)nieuweAttractie;
+			if(riskAttractie.opstellingsKeuring(nieuweAttractie.aantalkaartjes)) {
+				System.out.println("De attractie wordt gekeurd.");
+				Main.pressEnter();
+			}
+		}
 		nieuweAttractie.draaien();
 		nieuweAttractie.vulKassa(attractieKeuze - 1); //
 		nieuweAttractie.verhoogKaartAantal();
+	
 		setAantalVerkochteKaartjes();
-
-		System.out.println("Het totaal aantal verkochte kaartjes is " + getAantalVerkochteKaartjes() + ".");
+		//System.out.println("Het totaal aantal verkochte kaartjes is " + getAantalVerkochteKaartjes() + ".");
+		if(nieuweAttractie instanceof GokAttracties) {
+			((GokAttracties) nieuweAttractie).kansSpelBelastingBetalen();
+		}
 	}
 
 	void stelVragenAanBezoeker() {
@@ -70,7 +80,7 @@ public class Eigenaar {
 			stelVragenAanBezoeker();
 			break;
 		case "quit":
-			System.out.println("Oh je gaat weer? Nouja.. tot de volgende keer!");
+			System.out.println("Tot de volgende keer!");
 			Main.kermisverlaten = true;
 			break;
 		default:
@@ -84,7 +94,7 @@ public class Eigenaar {
 		System.out.println("OMZET\tATTRACTIE");
 		for(int k = 0; k< Kermis.attracties.length ; k++) {
 			System.out.printf("%.2f\t%s\n", Kermis.attracties[k].omzet, Kermis.attracties[k].attractienaam);
-			totaleOmzet += kassa.omzetAttracties[k];
+			totaleOmzet += Kermis.attracties[k].omzet;
 		}
 		System.out.printf("----\n%.2f\t%s\n", totaleOmzet, "Totaal");
 		
