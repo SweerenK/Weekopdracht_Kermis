@@ -6,7 +6,7 @@ public class Bezoeker {
 	int kiesAttractie() {
 		
 		while (Main.kermisverlaten == false) {
-			System.out.println("In welke attractie wil je?");
+			System.out.println("De eigenaar vraagt: \"In welke attractie wil je?\"");
 			for (int i = 0; i < kermis.attracties.length; i++) {
 				if(i == 3) {
 				System.out.println();

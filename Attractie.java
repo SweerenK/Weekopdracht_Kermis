@@ -3,8 +3,8 @@ package weekopdracht_extra;
 abstract public class Attractie {
 	Attractie attractie;
 	String attractienaam;
-	int oppervlakte, aantalkaartjes, index;
-	Double prijs, omzet = 0.00, gereserveerdeOmzet = 0.00;
+	int draailimiet, oppervlakte, aantalkaartjes, index, aantalbezoekenInspecteur, bezoekMoment = 0;
+	Double prijs, omzet = 0.00, gereserveerdeOmzet = 0.00, afgedragenOmzet = 0.00;
 	Kassa kassa = new Kassa();
 
 	void draaien() {
@@ -17,7 +17,10 @@ abstract public class Attractie {
 
 	void verhoogKaartAantal() {
 		aantalkaartjes++;
-		//System.out.println("Het aantal verkochte kaartjes (" + attractienaam + ") is " + aantalkaartjes + ".");
+	}
+	
+	void reserveerOmzet() {
+		gereserveerdeOmzet+=0.3*prijs;
 	}
 }
 
@@ -28,12 +31,13 @@ class Botsauto extends Attractie {
 	}
 }
 
-class Spin extends RisicoRijkeAttracties {
-	Spin() {
-		attractienaam = "Spin";
-		prijs = 2.25;
-		draaiLimiet = 5;
+class Spin extends RisicoRijkeAttracties implements GokAttracties{
+	Spin(){
+	attractienaam = "Spin";
+	prijs = 2.25;
+	draaiLimiet = 5;
 	}
+	
 }
 
 class Spiegelpaleis extends Attractie {
@@ -62,12 +66,5 @@ class Ladderklimmen extends Attractie implements GokAttracties {
 	Ladderklimmen() {
 		attractienaam = "Ladderklimmen";
 		prijs = 5.00;
-		gereserveerdeOmzet = prijs * 0.3;
-	}
-
-	public void kansSpelBelastingBetalen() {
-		System.out.printf("Er wordt %.2f gereserveerd van de prijs. In totaal is er %.2f gereserveerd van de omzet.\n",
-				gereserveerdeOmzet, 0.3 * omzet);
-		Main.pressEnter();
 	}
 }

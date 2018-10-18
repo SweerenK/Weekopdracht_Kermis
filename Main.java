@@ -9,6 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		Eigenaar eigenaar = new Eigenaar();
 		Bezoeker bezoeker = new Bezoeker();
+		BelastingInspecteur inspectie = new BelastingInspecteur();
 		boolean kermisverlaten = false;
 		boolean doorvragen = true;
 
@@ -16,8 +17,9 @@ public class Main {
 			eigenaar.stelVragenAanBezoeker();
 			int attractieKeuze = (kermisverlaten) ? -1 : bezoeker.kiesAttractie();
 			if (attractieKeuze != -1) {
-				eigenaar.verwerkAttractieKeuze(attractieKeuze);
+				eigenaar.verwerkAttractieKeuze(attractieKeuze, inspectie);
 			} else {
+				System.out.println("De eigenaar geeft je een hand en zegt: \"Tot de volgende keer!\"");
 				kermisverlaten = true;
 			}
 		}

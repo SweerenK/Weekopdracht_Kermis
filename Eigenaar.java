@@ -2,8 +2,8 @@ package weekopdracht_extra;
 
 public class Eigenaar {
 	int[] aantalVerkochteKaartjes = new int[6];
-	String[] vragenAanBezoeker = { "Wil je een nieuwe rit maken?", "Wil je inzage in de cijfers?",
-			"Wil je de kermis verlaten?" };
+	String[] vragenAanBezoeker = { "\"Wil je een nieuwe rit maken?\"", "\"Wil je inzage in de cijfers?\"",
+			"\"Wil je de kermis verlaten?\"" };
 	String[][] cijfersVoorBezoeker = { { "k", "aantal kaartjes" }, { "o", "omzet attracties" },{"t", "terug.."} };
 	Kassa kassa = new Kassa();
 	
@@ -21,7 +21,7 @@ public class Eigenaar {
 		return totaal;
 	}
 
-	void verwerkAttractieKeuze(int attractieKeuze) {
+	void verwerkAttractieKeuze(int attractieKeuze, BelastingInspecteur inspectie) {
 		Attractie nieuweAttractie = Kermis.attracties[attractieKeuze - 1];
 		if(nieuweAttractie instanceof RisicoRijkeAttracties) {
 			RisicoRijkeAttracties riskAttractie = (RisicoRijkeAttracties)nieuweAttractie;
@@ -31,17 +31,14 @@ public class Eigenaar {
 			}
 		}
 		nieuweAttractie.draaien();
-		nieuweAttractie.vulKassa(attractieKeuze - 1); //
+		nieuweAttractie.vulKassa(attractieKeuze - 1);
+		inspectie.checkAttractie(nieuweAttractie);
 		nieuweAttractie.verhoogKaartAantal();
-	
 		setAantalVerkochteKaartjes();
-		//System.out.println("Het totaal aantal verkochte kaartjes is " + getAantalVerkochteKaartjes() + ".");
-		if(nieuweAttractie instanceof GokAttracties) {
-			((GokAttracties) nieuweAttractie).kansSpelBelastingBetalen();
-		}
 	}
 
 	void stelVragenAanBezoeker() {
+		System.out.println("De eigenaar vraagt: ");
 		for (int i = 0; i < vragenAanBezoeker.length; i++) {
 			System.out.println((i + 1) + ".\t" + vragenAanBezoeker[i]);
 		}
@@ -56,13 +53,13 @@ public class Eigenaar {
 			Main.kermisverlaten = true;
 			break;
 		default:
-			System.out.println("Sorry, ik hoorde je antwoord niet.");
+			System.out.println("\"Sorry, ik hoorde je antwoord niet.\"");
 			stelVragenAanBezoeker();
 		}
 	}
 
 	void geefInzageInCijfers() {
-		System.out.println("Welke informatie wil je weten?");
+		System.out.println("De eigenaar vraagt: \"Welke informatie wil je weten?\"");
 		for (int j = 0; j < cijfersVoorBezoeker.length; j++) {
 			System.out.println(cijfersVoorBezoeker[j][0] + ".\t" + cijfersVoorBezoeker[j][1]);
 		}
@@ -80,7 +77,6 @@ public class Eigenaar {
 			stelVragenAanBezoeker();
 			break;
 		case "quit":
-			System.out.println("Tot de volgende keer!");
 			Main.kermisverlaten = true;
 			break;
 		default:
@@ -90,14 +86,18 @@ public class Eigenaar {
 	}
 
 	void toonCijfersOmzet() {
-		Double totaleOmzet = 0.00;
-		System.out.println("OMZET\tATTRACTIE");
+		Double totaleOmzet = 0.00, totaleAfdracht = 0.00;
+		System.out.printf("%s\t%s\t%s\n", "ATTRACTIE", "OMZET", "AFDRACHT");
 		for(int k = 0; k< Kermis.attracties.length ; k++) {
-			System.out.printf("%.2f\t%s\n", Kermis.attracties[k].omzet, Kermis.attracties[k].attractienaam);
+			if(Kermis.attracties[k].attractienaam.length() > 6) {
+			System.out.printf("%s\t%.2f\t%.2f (%s)\n", Kermis.attracties[k].attractienaam, Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.omzetAttracties[k][1], Kermis.attracties[k].aantalbezoekenInspecteur);
+			}else {
+			System.out.printf("%s\t\t%.2f\t%.2f (%s)\n", Kermis.attracties[k].attractienaam, Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.omzetAttracties[k][1], Kermis.attracties[k].aantalbezoekenInspecteur);
+			}
 			totaleOmzet += Kermis.attracties[k].omzet;
+			totaleAfdracht += Kermis.attracties[k].kassa.omzetAttracties[k][1];
 		}
-		System.out.printf("----\n%.2f\t%s\n", totaleOmzet, "Totaal");
-		
+		System.out.printf("-------------\n%s\t\t%.2f\t%.2f\n", "Totaal", totaleOmzet, totaleAfdracht);
 		System.out.println();
 		geefInzageInCijfers();
 	}
@@ -107,7 +107,7 @@ public class Eigenaar {
 		for(int k = 0; k< Kermis.attracties.length ; k++) {
 			System.out.println(Kermis.attracties[k].aantalkaartjes + "\t" + Kermis.attracties[k].attractienaam);
 		}
-		System.out.println("----\n" + getAantalVerkochteKaartjes() + "\tTotaal");
+		System.out.println("----\n" + getAantalVerkochteKaartjes() + "\tTotaal\n");
 		System.out.println();
 		geefInzageInCijfers();
 	}
