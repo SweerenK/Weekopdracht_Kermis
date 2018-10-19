@@ -4,7 +4,7 @@ public class Monteur {
 
 	void onderhoudAttracties() {
 		System.out.println(
-				"Monteur: \"Ik zal de RisicoRijkeAttracties keuren, voordat ze gebruikt worden.\nLaten we ook gelijk een nieuwe afspraak inplannen:\"\n");
+				"Monteur: \"Ik zal de RisicoRijkeAttracties keuren, voordat ze de volgende keer gebruikt worden.\nLaten we ook alvast een nieuwe afspraak inplannen:\"\n");
 		System.out.println("ATTRACTIE\tNIEUWE AFSPRAAK");
 		for (int i = 0; i < Kermis.attracties.length; i++) {
 			if ((Kermis.attracties[i] instanceof RisicoRijkeAttracties)) {

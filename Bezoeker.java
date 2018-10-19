@@ -1,8 +1,8 @@
 package weekopdracht_extra;
 
 public class Bezoeker {
-	Double bedragOpZak = 0.00;
-	Kermis kermis = new Kermis();
+	private Double bedragOpZak = 0.00;
+	private Kermis kermis = new Kermis();
 
 	int kiesAttractie() {
 		while (Main.kermisverlaten == false) {
@@ -28,6 +28,10 @@ public class Bezoeker {
 
 	void setBedragOpZak(Double geld) {
 		bedragOpZak += geld;
+	}
+	
+	Double getBedragOpZak() {
+		return bedragOpZak;
 	}
 
 	boolean controleerPortemonnee(int attractieKeuze, Double goedkoopsteAttractie) {

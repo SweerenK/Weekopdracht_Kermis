@@ -3,12 +3,12 @@ package weekopdracht_extra;
 import java.util.Scanner;
 
 public class Eigenaar {
-	int[] aantalVerkochteKaartjes = new int[6];
-	String[] vragenAanBezoeker = { "\"Wil je een nieuwe rit maken?\"", "\"Wil je naar de pinautomaat?\"",
+	private int[] aantalVerkochteKaartjes = new int[6];
+	private String[] vragenAanBezoeker = { "\"Wil je een nieuwe rit maken?\"", "\"Wil je naar de pinautomaat?\"",
 			"\"Zal ik inzage in de cijfers geven?\"", "\"Zal ik de monteur langs laten komen?\"",
 			"\"Wil je de kermis verlaten?\"" };
-	String[][] cijfersVoorBezoeker = { { "k", "aantal kaartjes" }, { "o", "omzet attracties" }, { "t", "terug.." } };
-	Kassa kassa = new Kassa();
+	private String[][] cijfersVoorBezoeker = { { "k", "aantal kaartjes" }, { "o", "omzet attracties" }, { "t", "terug.." } };
+	private Kassa kassa = new Kassa();
 
 	public void setAantalVerkochteKaartjes() {
 		for (int k = 0; k < aantalVerkochteKaartjes.length; k++) {
@@ -53,7 +53,7 @@ public class Eigenaar {
 		case 1:
 			break;
 		case 2:
-			System.out.printf("Je hebt €" + "%.2f" + " op zak.\nHoeveel geld wil je pinnen?", bezoeker.bedragOpZak);
+			System.out.printf("Je hebt €" + "%.2f" + " op zak.\nHoeveel geld wil je pinnen?", bezoeker.getBedragOpZak());
 			Double geld = Main.scan.nextDouble();
 			Main.scan.nextLine();
 			try {
@@ -121,15 +121,15 @@ public class Eigenaar {
 		for (int k = 0; k < Kermis.attracties.length; k++) {
 			if (Kermis.attracties[k].attractienaam.length() > 6) {
 				System.out.printf("%s\t%.2f\t%.2f (%s)\n", Kermis.attracties[k].attractienaam,
-						Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.omzetAttracties[k][1],
+						Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.getOmzetAttracties(k,1),
 						Kermis.attracties[k].aantalbezoekenInspecteur);
 			} else {
 				System.out.printf("%s\t\t%.2f\t%.2f (%s)\n", Kermis.attracties[k].attractienaam,
-						Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.omzetAttracties[k][1],
+						Kermis.attracties[k].omzet, Kermis.attracties[k].kassa.getOmzetAttracties(k,1),
 						Kermis.attracties[k].aantalbezoekenInspecteur);
 			}
 			totaleOmzet += Kermis.attracties[k].omzet;
-			totaleAfdracht += Kermis.attracties[k].kassa.omzetAttracties[k][1];
+			totaleAfdracht += Kermis.attracties[k].kassa.getOmzetAttracties(k,1);
 		}
 		System.out.printf("-------------\n%s\t\t%.2f\t%.2f\n", "Totaal", totaleOmzet, totaleAfdracht);
 		System.out.println();

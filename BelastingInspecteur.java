@@ -3,8 +3,8 @@ package weekopdracht_extra;
 import java.util.Random;
 
 public class BelastingInspecteur {
-	Random randomBezoek = new Random();
-	Kassa kassa = new Kassa();
+	private Random randomBezoek = new Random();
+	private Kassa kassa = new Kassa();
 	private int totaalAantalRittenGeind = 0;
 
 	void checkAttractie(Attractie x) {
