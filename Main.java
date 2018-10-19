@@ -10,21 +10,36 @@ public class Main {
 		Eigenaar eigenaar = new Eigenaar();
 		Bezoeker bezoeker = new Bezoeker();
 		BelastingInspecteur inspectie = new BelastingInspecteur();
-		boolean kermisverlaten = false;
 
+		System.out.println(
+				"Het is een prachtige dag om naar de kermis te gaan.\nHoeveel geld wil je meenemen? (tip: minimaal 100 euro)");
+		int bedrag = scan.nextInt();
+		scan.nextLine();
+		bezoeker.setBedragOpZak(Double.parseDouble(Integer.toString(bedrag)));
+
+		System.out.println("\nJe loopt de kermis op en ziet de eigenaar verschijnen.");
 		while (kermisverlaten == false) {
-			eigenaar.stelVragenAanBezoeker();
+			Double goedkoopsteAttractie = 100.00;
+			for (int j = 0; j < Kermis.attracties.length; j++) {
+				if (Kermis.attracties[j].prijs < goedkoopsteAttractie) {
+					goedkoopsteAttractie = Kermis.attracties[j].prijs;
+				}
+			}
+
+			eigenaar.stelVragenAanBezoeker(bezoeker);
+
 			int attractieKeuze = (kermisverlaten) ? -1 : bezoeker.kiesAttractie();
-			if (attractieKeuze != -1) {
+
+			if (bezoeker.controleerPortemonnee(attractieKeuze, goedkoopsteAttractie)) {
 				eigenaar.verwerkAttractieKeuze(attractieKeuze, inspectie);
-			} else {
-				System.out.println("De eigenaar geeft je een hand en zegt: \"Tot de volgende keer!\"");
-				kermisverlaten = true;
+			}
+			if (kermisverlaten) {
+				System.out.println("Eigenaar:\t\"Tot de volgende keer!\"");
 			}
 		}
 		scan.close();
 	}
-	
+
 	static boolean verlaatKermis() {
 		if (scan.nextLine().equals("q")) {
 			System.out.println("Je verlaat de kermis.");

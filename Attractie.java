@@ -8,7 +8,8 @@ abstract public class Attractie {
 	Kassa kassa = new Kassa();
 
 	void draaien() {
-		System.out.println("De attractie " + attractienaam + " draait.");
+		System.out.print("De attractie " + attractienaam + " draait.");
+		Main.pressEnter();
 	}
 
 	void vulKassa(int attractieKeuze) {
@@ -18,9 +19,9 @@ abstract public class Attractie {
 	void verhoogKaartAantal() {
 		aantalkaartjes++;
 	}
-	
+
 	void reserveerOmzet() {
-		gereserveerdeOmzet+=0.3*prijs;
+		gereserveerdeOmzet += 0.3 * prijs;
 	}
 }
 
@@ -31,11 +32,11 @@ class Botsauto extends Attractie {
 	}
 }
 
-class Spin extends RisicoRijkeAttracties implements GokAttracties{
-	Spin(){
-	attractienaam = "Spin";
-	prijs = 2.25;
-	draaiLimiet = 5;
+class Spin extends RisicoRijkeAttracties implements GokAttracties {
+	Spin() {
+		attractienaam = "Spin";
+		prijs = 2.25;
+		draaiLimiet = 5;
 	}
 }
 

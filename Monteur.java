@@ -15,7 +15,7 @@ public class Monteur {
 			}
 		}
 
-		System.out.println("\nMocht je de attracties eerder willen laten keuren, dan weet je mij te vinden!");
+		System.out.print("\n\"Mocht je de attracties eerder willen laten keuren, dan weet je mij te vinden!\"\t");
 		Main.pressEnter();
 	}
 }

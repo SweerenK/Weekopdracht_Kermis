@@ -6,7 +6,7 @@ public class BelastingInspecteur {
 	Random randomBezoek = new Random();
 	Kassa kassa = new Kassa();
 	private int totaalAantalRittenGeind = 0;
-	
+
 	void checkAttractie(Attractie x) {
 		if (x instanceof GokAttracties) {
 			x.reserveerOmzet();
@@ -17,14 +17,15 @@ public class BelastingInspecteur {
 				((GokAttracties) x).kansSpelBelastingBetalen(x);
 				totaalAantalRittenGeind += x.bezoekMoment;
 				setBezoekMoment(x);
-			} else {	
+			} else {
 			}
 		}
 	}
 
 	void setBezoekMoment(Attractie x) {
 		x.bezoekMoment = 1 + randomBezoek.nextInt(15);
-		System.out.println("De belastinginspecteur zegt: \"Ik kom langs na " + x.bezoekMoment + " rit(ten) van deze attractie.\"");
+		System.out.print("De belastinginspecteur zegt: \"Ik kom langs na " + x.bezoekMoment
+				+ " rit(ten) van deze attractie.\"\t");
 		Main.pressEnter();
 	}
 

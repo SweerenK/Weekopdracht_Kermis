@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public class Eigenaar {
 	int[] aantalVerkochteKaartjes = new int[6];
-	String[] vragenAanBezoeker = { "\"Wil je een nieuwe rit maken?\"", "\"Zal ik inzage in de cijfers geven?\"",
-			"\"Zal ik de monteur langs laten komen?\"", "\"Wil je de kermis verlaten?\"" };
+	String[] vragenAanBezoeker = { "\"Wil je een nieuwe rit maken?\"", "\"Wil je naar de pinautomaat?\"",
+			"\"Zal ik inzage in de cijfers geven?\"", "\"Zal ik de monteur langs laten komen?\"",
+			"\"Wil je de kermis verlaten?\"" };
 	String[][] cijfersVoorBezoeker = { { "k", "aantal kaartjes" }, { "o", "omzet attracties" }, { "t", "terug.." } };
 	Kassa kassa = new Kassa();
 
@@ -25,13 +26,15 @@ public class Eigenaar {
 
 	void verwerkAttractieKeuze(int attractieKeuze, BelastingInspecteur inspectie) {
 		Attractie nieuweAttractie = Kermis.attracties[attractieKeuze - 1];
+
 		if (nieuweAttractie instanceof RisicoRijkeAttracties) {
 			RisicoRijkeAttracties riskAttractie = (RisicoRijkeAttracties) nieuweAttractie;
 			if (riskAttractie.opstellingsKeuring(nieuweAttractie.aantalkaartjes, nieuweAttractie.vervroegdeKeuring)) {
-				System.out.println("De attractie wordt gekeurd.");
+				System.out.print("\nDe attractie wordt gekeurd.");
 				Main.pressEnter();
 			}
 		}
+
 		nieuweAttractie.draaien();
 		nieuweAttractie.vulKassa(attractieKeuze - 1);
 		inspectie.checkAttractie(nieuweAttractie);
@@ -39,7 +42,7 @@ public class Eigenaar {
 		setAantalVerkochteKaartjes();
 	}
 
-	void stelVragenAanBezoeker() {
+	void stelVragenAanBezoeker(Bezoeker bezoeker) {
 		System.out.println("De eigenaar vraagt: ");
 		for (int i = 0; i < vragenAanBezoeker.length; i++) {
 			System.out.println((i + 1) + ".\t" + vragenAanBezoeker[i]);
@@ -50,50 +53,65 @@ public class Eigenaar {
 		case 1:
 			break;
 		case 2:
-			geefInzageInCijfers();
+			System.out.printf("Je hebt €" + "%.2f" + " op zak.\nHoeveel geld wil je pinnen?", bezoeker.bedragOpZak);
+			Double geld = Main.scan.nextDouble();
+			Main.scan.nextLine();
+			try {
+				if (geld > 0) {
+					bezoeker.setBedragOpZak(geld);
+					System.out.printf("Je hebt €" + "%.2f" + " gepind.", geld);
+				} else {
+					System.out.println("Je kunt geen negatief bedrag pinnen.");
+				}
+			} catch (Exception e) {
+				System.out.println("Je hebt geprobeerd een onjuist bedrag te pinnen.\nBedragen zijn kommagetallen.");
+			}
+			Main.pressEnter();
+			stelVragenAanBezoeker(bezoeker);
 			break;
 		case 3:
-			Monteur monteur = new Monteur();
-			monteur.onderhoudAttracties();
-			stelVragenAanBezoeker();
+			geefInzageInCijfers(bezoeker);
 			break;
 		case 4:
+			Monteur monteur = new Monteur();
+			monteur.onderhoudAttracties();
+			stelVragenAanBezoeker(bezoeker);
+			break;
+		case 5:
 			Main.kermisverlaten = true;
 			break;
 		default:
 			System.out.println("\"Sorry, ik hoorde je antwoord niet.\"");
-			stelVragenAanBezoeker();
+			stelVragenAanBezoeker(bezoeker);
 		}
 	}
 
-	void geefInzageInCijfers() {
+	void geefInzageInCijfers(Bezoeker bezoeker) {
 		System.out.println("De eigenaar vraagt: \"Welke informatie wil je weten?\"");
 		for (int j = 0; j < cijfersVoorBezoeker.length; j++) {
 			System.out.println(cijfersVoorBezoeker[j][0] + ".\t" + cijfersVoorBezoeker[j][1]);
-		}		
+		}
 
 		switch (Main.scan.nextLine()) {
 		case "k":
 			toonCijfersKaartverkoop();
 			Main.pressEnter();
-			// Main.ResetScanner();
-			geefInzageInCijfers();
+			geefInzageInCijfers(bezoeker);
 			break;
 		case "o":
 			toonCijfersOmzet();
 			Main.pressEnter();
-			// Main.ResetScanner();
-			geefInzageInCijfers();
+			geefInzageInCijfers(bezoeker);
 			break;
 		case "t":
-			stelVragenAanBezoeker();
+			stelVragenAanBezoeker(bezoeker);
 			break;
 		case "quit":
 			Main.kermisverlaten = true;
 			break;
 		default:
 			System.out.println("Sorry, ik hoorde je antwoord niet.");
-			geefInzageInCijfers();
+			geefInzageInCijfers(bezoeker);
 		}
 	}
 

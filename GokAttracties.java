@@ -10,8 +10,6 @@ interface GokAttracties {
 			if (Kermis.attracties[y].equals(x)) {
 				x.kassa.omzetAttracties[y][0] -= x.gereserveerdeOmzet;
 				x.kassa.omzetAttracties[y][1] += x.gereserveerdeOmzet;
-
-				System.out.println(x.kassa.omzetAttracties[y][0] + "<>" + x.kassa.omzetAttracties[y][1]);
 			}
 		}
 		x.gereserveerdeOmzet = 0.00;
