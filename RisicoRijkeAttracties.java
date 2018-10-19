@@ -2,9 +2,9 @@ package weekopdracht_extra;
 
 abstract public class RisicoRijkeAttracties extends Attractie{
 	int draaiLimiet;
-	boolean opstellingsKeuring(int aantalkaartjes) {
+	boolean opstellingsKeuring(int aantalkaartjes, int resetValue) {
 		
-		if(aantalkaartjes%draaiLimiet == 0 && aantalkaartjes != 0) {
+		if((aantalkaartjes-resetValue)%draaiLimiet == 0) {
 			return true;
 		}else{
 			return false;

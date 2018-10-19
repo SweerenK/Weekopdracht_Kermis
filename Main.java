@@ -11,7 +11,6 @@ public class Main {
 		Bezoeker bezoeker = new Bezoeker();
 		BelastingInspecteur inspectie = new BelastingInspecteur();
 		boolean kermisverlaten = false;
-		boolean doorvragen = true;
 
 		while (kermisverlaten == false) {
 			eigenaar.stelVragenAanBezoeker();
@@ -23,8 +22,9 @@ public class Main {
 				kermisverlaten = true;
 			}
 		}
+		scan.close();
 	}
-
+	
 	static boolean verlaatKermis() {
 		if (scan.nextLine().equals("q")) {
 			System.out.println("Je verlaat de kermis.");
@@ -36,8 +36,8 @@ public class Main {
 
 	static boolean pressEnter() {
 		System.out.println("\t(Druk op enter om door te gaan..)");
-		scan.nextLine();
-		if (scan.nextLine().length() == 0) {
+		String input = scan.nextLine();
+		if (input.length() == 0) {
 			return false;
 		} else {
 			return true;

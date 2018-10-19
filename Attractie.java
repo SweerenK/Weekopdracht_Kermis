@@ -3,7 +3,7 @@ package weekopdracht_extra;
 abstract public class Attractie {
 	Attractie attractie;
 	String attractienaam;
-	int draailimiet, oppervlakte, aantalkaartjes, index, aantalbezoekenInspecteur, bezoekMoment = 0;
+	int aantalkaartjes, index, aantalbezoekenInspecteur, bezoekMoment = 0, vervroegdeKeuring = 0;
 	Double prijs, omzet = 0.00, gereserveerdeOmzet = 0.00, afgedragenOmzet = 0.00;
 	Kassa kassa = new Kassa();
 
@@ -37,7 +37,6 @@ class Spin extends RisicoRijkeAttracties implements GokAttracties{
 	prijs = 2.25;
 	draaiLimiet = 5;
 	}
-	
 }
 
 class Spiegelpaleis extends Attractie {

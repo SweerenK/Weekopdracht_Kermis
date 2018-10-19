@@ -17,8 +17,7 @@ public class BelastingInspecteur {
 				((GokAttracties) x).kansSpelBelastingBetalen(x);
 				totaalAantalRittenGeind += x.bezoekMoment;
 				setBezoekMoment(x);
-			} else {
-				
+			} else {	
 			}
 		}
 	}
